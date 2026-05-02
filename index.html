@@ -1,31 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth dark">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IS 2502 Masterclass | The Ultimate Civil Engineer Guide</title>
+    <title>IS 2502:1963 Complete Masterclass</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
-                    colors: {
-                        darkBg: '#09090b',
-                        cardDark: '#18181b',
-                        neonBlue: '#3b82f6',
-                        neonGreen: '#10b981',
-                        neonOrange: '#f97316',
-                        steel: '#94a3b8'
-                    },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        mono: ['Fira Code', 'monospace']
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        brandDark: '#050505',
+                        brandPanel: '#111111',
+                        brandBorder: '#222222',
+                        accentBlue: '#2563eb',
+                        accentGreen: '#16a34a',
+                        accentYellow: '#ca8a04',
+                        accentRed: '#dc2626',
+                        textMain: '#e5e5e5',
+                        textMuted: '#737373'
                     }
                 }
             }
@@ -33,663 +34,522 @@
     </script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;800;900&display=swap');
-
         body {
-            background-color: #09090b;
-            color: #f8fafc;
-            overflow-x: hidden;
-        }
-
-        /* Pro Scrollbar */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: #09090b; }
-        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 5px; }
-
-        /* Glassmorphism & Neon */
-        .glass-panel {
-            background: rgba(24, 24, 27, 0.6);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .neon-border {
-            position: relative;
-        }
-        .neon-border::before {
-            content: '';
-            position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px;
-            background: linear-gradient(45deg, #3b82f6, #10b981, #f97316, #3b82f6);
-            z-index: -1;
-            border-radius: inherit;
-            background-size: 400%;
-            animation: glowing 20s linear infinite;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-        .neon-border:hover::before { opacity: 1; }
-
-        @keyframes glowing {
-            0% { background-position: 0 0; }
-            50% { background-position: 400% 0; }
-            100% { background-position: 0 0; }
-        }
-
-        /* SVG Rebar Styling */
-        .rebar-path {
-            fill: none;
-            stroke: url(#rebarGradient);
-            stroke-width: 12;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.5));
-        }
-
-        /* Interactive Grid Background */
-        .bg-grid {
+            background-color: #050505;
+            color: #e5e5e5;
             background-image: 
                 linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
+            background-size: 40px 40px;
         }
 
-        /* Loader */
-        #pro-loader {
-            position: fixed; inset: 0; z-index: 9999;
-            background: #09090b; display: flex;
-            flex-direction: column; justify-content: center; align-items: center;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2563eb; }
+
+        .glass-box {
+            background: rgba(17, 17, 17, 0.8);
+            backdrop-filter: blur(16px);
+            border: 1px solid #222;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
-        .loader-bar {
-            width: 200px; height: 10px; background: #333; border-radius: 5px; overflow: hidden; margin-top: 20px;
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .loader-progress {
-            width: 0%; height: 100%; background: #3b82f6; box-shadow: 0 0 10px #3b82f6;
+
+        /* Sticky Nav for Sections */
+        .side-nav-item.active {
+            color: #3b82f6;
+            border-left: 2px solid #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
         }
+
+        table { border-collapse: collapse; width: 100%; }
+        th, td { padding: 16px; border: 1px solid #222; text-align: left; }
+        th { background-color: #111; color: #a3a3a3; font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.05em; }
+        tr:hover { background-color: #1a1a1a; }
     </style>
 </head>
-<body class="bg-grid antialiased">
+<body class="antialiased flex flex-col md:flex-row min-h-screen">
 
-    <svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
-        <defs>
-            <linearGradient id="rebarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#94a3b8" />
-                <stop offset="50%" stop-color="#475569" />
-                <stop offset="100%" stop-color="#1e293b" />
-            </linearGradient>
-            <pattern id="ribs" width="4" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                <line x1="0" y1="0" x2="0" y2="12" stroke="#cbd5e1" stroke-width="1.5" opacity="0.3"/>
-            </pattern>
-        </defs>
-    </svg>
-
-    <div id="pro-loader">
-        <i class="fa-solid fa-helmet-safety text-6xl text-neonOrange mb-4 animate-bounce"></i>
-        <h1 class="text-3xl font-black tracking-widest uppercase bg-clip-text text-transparent bg-gradient-to-r from-neonBlue to-neonGreen">
-            IS 2502 Initializing
-        </h1>
-        <div class="loader-bar"><div class="loader-progress" id="load-prog"></div></div>
-        <p class="text-gray-500 mt-2 text-sm font-mono" id="load-text">Compiling standard codes...</p>
-    </div>
-
-    <nav class="fixed w-full z-50 glass-panel border-b border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-neonBlue to-neonGreen flex items-center justify-center text-white font-bold text-xl shadow-[0_0_15px_rgba(59,130,246,0.5)]">
-                        IS
-                    </div>
-                    <span class="font-bold text-xl tracking-wide">Code 2502 <span class="text-neonBlue font-mono text-sm">vPro.1</span></span>
-                </div>
-                <div class="hidden md:block">
-                    <div class="flex items-baseline space-x-4">
-                        <a href="#basics" class="hover:text-neonBlue px-3 py-2 rounded-md text-sm font-medium transition">01. Basics</a>
-                        <a href="#bending" class="hover:text-neonOrange px-3 py-2 rounded-md text-sm font-medium transition">02. Bending Rules</a>
-                        <a href="#tolerances" class="hover:text-neonGreen px-3 py-2 rounded-md text-sm font-medium transition">03. Tolerances</a>
-                        <a href="#bbs" class="hover:text-purple-400 px-3 py-2 rounded-md text-sm font-medium transition">04. BBS Pro</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 hero-content opacity-0 translate-y-10">
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel text-sm text-neonBlue mb-8 font-mono border border-neonBlue/30 shadow-[0_0_15px_rgba(59,130,246,0.2)]">
-                <i class="fa-solid fa-satellite-dish animate-pulse"></i> Site Engineer Survival Guide
-            </div>
-            <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-6 leading-tight">
-                Master the Art of <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-neonBlue via-neonGreen to-neonOrange">
-                    Rebar Bending & Fixing
-                </span>
+    <aside class="w-full md:w-64 lg:w-80 h-auto md:h-screen sticky top-0 bg-brandPanel border-r border-brandBorder overflow-y-auto flex-shrink-0 z-50">
+        <div class="p-6">
+            <h1 class="text-2xl font-black mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-book-journal-whills text-accentBlue"></i> IS 2502
             </h1>
-            <p class="mt-4 max-w-3xl text-xl md:text-2xl mx-auto text-gray-400 font-light">
-                College ki boring kitaabo se bahar aao. Ye hai real site ka gyaan. IS 2502 sikhata hai sariya kaise modna hai, kitna modna hai, aur kyu modna hai bina uski strength tude.
-            </p>
-            <div class="mt-10 flex justify-center gap-6">
-                <a href="#bending" class="px-8 py-4 bg-neonBlue hover:bg-blue-600 text-white rounded-xl font-bold text-lg transition-all hover:scale-105 shadow-[0_0_20px_rgba(59,130,246,0.4)]">
-                    Start Learning <i class="fa-solid fa-arrow-right ml-2"></i>
+            <p class="text-xs text-textMuted font-mono mb-8 border-b border-brandBorder pb-4">Standard Practice for Detailing Reinforced Concrete Structures</p>
+            
+            <nav class="space-y-1">
+                <a href="#intro" class="side-nav-item block py-3 px-4 rounded-r-lg text-sm font-medium transition text-textMuted hover:text-white">1. Scope & Introduction</a>
+                <a href="#definitions" class="side-nav-item block py-3 px-4 rounded-r-lg text-sm font-medium transition text-textMuted hover:text-white">2. Deep Definitions</a>
+                <a href="#schedule" class="side-nav-item block py-3 px-4 rounded-r-lg text-sm font-medium transition text-textMuted hover:text-white">3. Official BBS Format</a>
+                <a href="#dimensions" class="side-nav-item block py-3 px-4 rounded-r-lg text-sm font-medium transition text-textMuted hover:text-white">4. Bend Dimensions</a>
+                <a href="#hooks" class="side-nav-item block py-3 px-4 rounded-r-lg text-sm font-medium transition text-textMuted hover:text-white">5. Standard Hooks & Bends</a>
+                <a href="#stirrups" class="side-nav-item block py-3 px-4 rounded-r-lg text-sm font-medium transition text-textMuted hover:text-white">6. Binders & Stirrups</a>
+                <a href="#tolerances" class="side-nav-item block py-3 px-4 rounded-r-lg text-sm font-medium transition text-textMuted hover:text-white">7. Cutting Tolerances</a>
+                <a href="#calculator" class="side-nav-item block py-3 px-4 rounded-r-lg text-sm font-medium transition text-accentBlue hover:text-white mt-8 bg-blue-900/10 border border-blue-900/30">
+                    <i class="fa-solid fa-calculator mr-2"></i> Master Pro Calculator
                 </a>
-            </div>
+            </nav>
         </div>
-        
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neonBlue/10 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
-    </header>
+    </aside>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-32">
+    <main class="flex-1 p-6 md:p-12 overflow-y-auto w-full max-w-6xl mx-auto space-y-24">
 
-        <section id="basics" class="scroll-mt-24">
-            <div class="flex items-center gap-4 mb-10 gs-reveal">
-                <h2 class="text-4xl font-black text-white">01. <span class="text-neonBlue">Site Pe Entry</span>: The Basics</h2>
-                <div class="flex-grow h-px bg-gradient-to-r from-neonBlue to-transparent"></div>
+        <header class="mb-16">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brandBorder text-xs font-mono text-textMuted mb-4">
+                <i class="fa-solid fa-code-commit text-accentGreen"></i> PDF Translated to Code
             </div>
+            <h2 class="text-4xl md:text-6xl font-black tracking-tight mb-6 leading-tight">
+                Mastering the Art of <br>
+                <span class="gradient-text">Bar Bending & Fixing</span>
+            </h2>
+            <p class="text-lg text-textMuted max-w-2xl leading-relaxed">
+                IS 2502:1963 civil engineering ka foundation hai. Sariya kaise kaatna hai, kitne radius par modna hai, aur allowances kaise calculate karne hain—yeh page aapko A to Z detail dega.
+            </p>
+        </header>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="glass-panel p-8 rounded-2xl neon-border gs-reveal">
-                    <h3 class="text-2xl font-bold mb-4 text-neonGreen"><i class="fa-solid fa-industry"></i> IS 2502 Kya Hai?</h3>
-                    <p class="text-gray-300 leading-relaxed mb-4">
-                        Bhai, concrete akela compression (dabao) jhel sakta hai, par tension (khichav) aate hi toot jata hai. Tension lene ke liye hum usme Sariya (Steel/Rebar) daalte hain. 
-                    </p>
-                    <p class="text-gray-300 leading-relaxed">
-                        Ab site pe sariya seedha thodi lagta hai! Uske Hooks banate hain, Stirrups (Ring) banate hain. Agar galat angle ya galat machine se mod diya, toh steel ke andar <strong>Micro-cracks</strong> aa jayenge aur load aane pe fail ho jayega. <strong>IS 2502</strong> yahi rules deta hai ki bina damage kiye steel ko kaise modna hai.
-                    </p>
-                </div>
-
-                <div class="glass-panel p-8 rounded-2xl neon-border gs-reveal">
-                    <h3 class="text-2xl font-bold mb-4 text-neonOrange"><i class="fa-solid fa-tag"></i> Symbols You Must Know</h3>
-                    <div class="space-y-4 font-mono text-sm">
-                        <div class="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
-                            <span class="text-2xl font-sans">ɸ</span>
-                            <span class="text-gray-400">Mild Steel Bar (IS 432)</span>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
-                            <span class="text-2xl font-sans font-bold">#</span>
-                            <span class="text-gray-400">Deformed/HYSD/TMT Bar (IS 1786)</span>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
-                            <span class="text-lg">@</span>
-                            <span class="text-gray-400">Center to Center Spacing (c/c)</span>
-                        </div>
+        <section id="intro" class="scroll-mt-24">
+            <h3 class="text-2xl font-bold mb-6 flex items-center gap-3 border-b border-brandBorder pb-3">
+                <span class="text-accentBlue">1.</span> Scope & Symbols (Clause 1.1 & 1.2)
+            </h3>
+            <div class="glass-box p-6 md:p-8 rounded-2xl">
+                <p class="text-textMain mb-6 leading-relaxed">
+                    Yeh standard symbol, approximate dimensions, aur bar ko modne (bending) aur fix karne ke procedures ko cover karta hai. Yeh mainly <strong>Mild Steel (IS 432)</strong> aur <strong>Deformed Bars (IS 1786)</strong> par apply hota hai.
+                </p>
+                <div class="grid md:grid-cols-3 gap-4 font-mono text-sm">
+                    <div class="bg-brandPanel border border-brandBorder p-4 rounded-xl flex items-center justify-between">
+                        <span class="text-2xl text-white">ɸ</span>
+                        <span class="text-textMuted text-right">Mild Steel Round Bar<br>(IS 432)</span>
                     </div>
-                    <div class="mt-4 p-3 border-l-4 border-neonOrange bg-orange-900/20 text-orange-200 text-sm">
-                        Pro Tip: Drawing me agar likha hai <strong>10 - #16 @ 150 c/c</strong> <br>
-                        Matlab: 10 bars, 16mm diameter ki TMT bars, 150mm ki doori par lagani hain.
+                    <div class="bg-brandPanel border border-brandBorder p-4 rounded-xl flex items-center justify-between">
+                        <span class="text-2xl text-white font-bold">#</span>
+                        <span class="text-textMuted text-right">Deformed / TMT Bar<br>(IS 1786)</span>
+                    </div>
+                    <div class="bg-brandPanel border border-brandBorder p-4 rounded-xl flex items-center justify-between">
+                        <span class="text-2xl text-white">@</span>
+                        <span class="text-textMuted text-right">Center to Center<br>Spacing (c/c)</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="bending" class="scroll-mt-24">
-            <div class="flex items-center gap-4 mb-10 gs-reveal">
-                <h2 class="text-4xl font-black text-white">02. <span class="text-neonOrange">Mandrel Radius</span>: The Bending Rule</h2>
-                <div class="flex-grow h-px bg-gradient-to-r from-neonOrange to-transparent"></div>
-            </div>
-
-            <div class="glass-panel p-8 rounded-3xl gs-reveal relative overflow-hidden">
-                <div class="absolute -right-20 -top-20 w-64 h-64 border-[40px] border-neonOrange/10 rounded-full"></div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <h3 class="text-3xl font-bold mb-4">Never Bend Sharp! 🚫</h3>
-                        <p class="text-gray-300 mb-6">
-                            Sariya kabhi bhi 90 degree sharp edge pe nahi modte. Ek gol pin (jise <strong>Mandrel</strong> kehte hain) ke around modte hain. Mandrel ka size sariye ke thickness (diameter - d) pe depend karta hai.
-                        </p>
-                        
-                        <div class="bg-black/40 p-6 rounded-2xl border border-gray-700">
-                            <h4 class="text-lg font-bold text-neonBlue mb-4">Select Bar Type for IS 2502 Rule:</h4>
-                            
-                            <div class="flex gap-4 mb-6">
-                                <button onclick="setMandrel('mild')" id="btn-mild" class="flex-1 py-3 px-4 rounded-xl font-bold transition-all bg-neonBlue text-white border-2 border-transparent">Mild Steel</button>
-                                <button onclick="setMandrel('tmt')" id="btn-tmt" class="flex-1 py-3 px-4 rounded-xl font-bold transition-all bg-gray-800 text-gray-400 border-2 border-gray-700 hover:border-gray-500">TMT / HYSD</button>
-                            </div>
-
-                            <div class="space-y-4 font-mono text-sm">
-                                <div class="flex justify-between items-center border-b border-gray-700 pb-2">
-                                    <span class="text-gray-400">Bar Diameter < 25mm:</span>
-                                    <span id="rule-1" class="text-xl font-bold text-white">2d</span>
-                                </div>
-                                <div class="flex justify-between items-center pt-2">
-                                    <span class="text-gray-400">Bar Diameter ≥ 25mm:</span>
-                                    <span id="rule-2" class="text-xl font-bold text-white">3d</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-gray-900 rounded-2xl p-6 border border-gray-700 flex flex-col items-center justify-center min-h-[350px] relative">
-                        <span class="absolute top-4 left-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Live Visualization</span>
-                        
-                        <div class="relative w-64 h-64 flex items-center justify-center mt-8">
-                            <div id="mandrel-viz" class="absolute bg-gray-500 rounded-full border-4 border-gray-400 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] z-10 transition-all duration-500 flex items-center justify-center" style="width: 80px; height: 80px;">
-                                <span id="mandrel-text" class="font-mono text-xs font-bold text-white">2d</span>
-                            </div>
-                            
-                            <svg class="absolute w-full h-full" viewBox="-100 -100 200 200">
-                                <path id="bend-path" class="rebar-path" d="M -100,40 L 0,40 A 40 40 0 0 0 40,0 L 40,-100" />
-                            </svg>
-                        </div>
-                        <p class="mt-8 text-center text-gray-400 text-sm">Pin (Mandrel) radius directly affects the bending curve. TMT bars are brittle, so they need a larger pin to avoid cracking.</p>
-                    </div>
+        <section id="definitions" class="scroll-mt-24">
+            <h3 class="text-2xl font-bold mb-6 flex items-center gap-3 border-b border-brandBorder pb-3">
+                <span class="text-accentGreen">2.</span> Deep Technical Definitions
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-box p-6 rounded-2xl border-l-4 border-l-accentGreen">
+                    <h4 class="text-lg font-bold text-white mb-2">Mandrel (Pin)</h4>
+                    <p class="text-sm text-textMuted leading-relaxed">
+                        Jis roller ya pin ke around sariya moda jata hai. IS code kehta hai sharp 90 degree nahi modna chahiye warna bar toot sakti hai. <strong>Mandrel ka internal radius bar ke diameter (d) par nirbhar karta hai.</strong>
+                    </p>
                 </div>
+                <div class="glass-box p-6 rounded-2xl border-l-4 border-l-accentRed">
+                    <h4 class="text-lg font-bold text-white mb-2">Bend Deduction (Elongation)</h4>
+                    <p class="text-sm text-textMuted leading-relaxed">
+                        Jab steel bend hota hai, outer curve stretch hota hai (tension) aur inner curve compress. Is wajah se bar ki total lambaai badh jati hai. BBS banate waqt is extra length ko <strong>minus</strong> karna zaroori hai.
+                    </p>
+                </div>
+                <div class="glass-box p-6 rounded-2xl border-l-4 border-l-accentBlue">
+                    <h4 class="text-lg font-bold text-white mb-2">Anchorage Value</h4>
+                    <p class="text-sm text-textMuted leading-relaxed">
+                        Ek sariya concrete mein se khichkar bahar na aa jaye (bond slip na ho), iske liye usko hooks ya bends diya jata hai. Har bend ki ek anchorage value hoti hai. Standard U-hook ki value 16d tak hoti hai.
+                    </p>
+                </div>
+                <div class="glass-box p-6 rounded-2xl border-l-4 border-l-accentYellow">
+                    <h4 class="text-lg font-bold text-white mb-2">Centre Line Measurement</h4>
+                    <p class="text-sm text-textMuted leading-relaxed">
+                        IS 2502 Clause 3.1.2 aur Table III ke anusaar, sariye ki bending dimensions hamesha uski <strong>Centre Line</strong> ke along measure ki jati hain. Outer-to-outer measure karne par formula badal jata hai.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="schedule" class="scroll-mt-24">
+            <h3 class="text-2xl font-bold mb-6 flex items-center gap-3 border-b border-brandBorder pb-3">
+                <span class="text-accentYellow">3.</span> Form of Schedule (Clause 2.1, Table I)
+            </h3>
+            <div class="glass-box p-6 rounded-2xl overflow-x-auto">
+                <p class="text-textMuted text-sm mb-4">IS 2502 ke according reinforcement detailing ke liye yahi standard format use hona chahiye:</p>
+                <table class="min-w-full">
+                    <thead>
+                        <tr>
+                            <th>(1) Location</th>
+                            <th>(2) Mark Designation</th>
+                            <th>(3) Size and Type</th>
+                            <th>(4) Number of Sets</th>
+                            <th>(5) Number per Set</th>
+                            <th>(6) Total Number</th>
+                            <th>(7) Length (mm)</th>
+                            <th>(8) Shape</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm font-mono">
+                        <tr>
+                            <td>Column C1</td>
+                            <td>C1-4R</td>
+                            <td># 16 mm</td>
+                            <td>5</td>
+                            <td>4</td>
+                            <td class="text-white font-bold">20</td>
+                            <td class="text-accentGreen">3250</td>
+                            <td>Straight</td>
+                        </tr>
+                        <tr>
+                            <td>Column C1</td>
+                            <td>Stirrup</td>
+                            <td>ɸ 8 mm</td>
+                            <td>5</td>
+                            <td>12</td>
+                            <td class="text-white font-bold">60</td>
+                            <td class="text-accentGreen">1240</td>
+                            <td>Rectangular</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
         <section id="hooks" class="scroll-mt-24">
-            <div class="flex items-center gap-4 mb-10 gs-reveal">
-                <h2 class="text-4xl font-black text-white">03. <span class="text-neonGreen">Standard Hooks</span> (Anchorage)</h2>
-                <div class="flex-grow h-px bg-gradient-to-r from-neonGreen to-transparent"></div>
+            <h3 class="text-2xl font-bold mb-6 flex items-center gap-3 border-b border-brandBorder pb-3">
+                <span class="text-white">4.</span> Bends & Hooks Forming End Anchorages (Clause 3.2.1)
+            </h3>
+            
+            <div class="glass-box p-8 rounded-2xl mb-8 border border-brandBorder">
+                <div class="mb-6 flex justify-between items-center">
+                    <h4 class="text-xl font-bold text-accentBlue">Standard 180° U-Hook (Fig. 1A)</h4>
+                    <span class="bg-blue-900/30 text-blue-400 px-3 py-1 rounded text-xs font-mono border border-blue-900/50">Allowance (H) = Approx 9d</span>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="bg-brandPanel rounded-xl border border-brandBorder p-6 flex justify-center">
+                        <svg viewBox="0 0 200 120" class="w-full max-w-[200px]">
+                            <path d="M 200,80 L 80,80" stroke="#555" stroke-width="8" fill="none" stroke-linecap="round"/>
+                            <path d="M 80,80 A 30,30 0 0 1 80,20 L 120,20" stroke="#3b82f6" stroke-width="8" fill="none" stroke-linecap="round"/>
+                            <line x1="120" y1="10" x2="120" y2="30" stroke="#737373" stroke-width="1"/>
+                            <line x1="80" y1="10" x2="80" y2="30" stroke="#737373" stroke-width="1"/>
+                            <text x="100" y="8" fill="#737373" font-size="10" text-anchor="middle" font-family="monospace">min 4d</text>
+                            <circle cx="80" cy="50" r="30" stroke="#737373" stroke-width="1" fill="none" stroke-dasharray="2,2"/>
+                            <text x="80" y="55" fill="#737373" font-size="12" text-anchor="middle" font-family="monospace">k.d</text>
+                        </svg>
+                    </div>
+                    <div>
+                        <ul class="space-y-4 text-textMuted text-sm leading-relaxed list-disc list-inside">
+                            <li>Ek standard U-Hook sariye ko concrete me lock karta hai.</li>
+                            <li><strong>k value:</strong> Mandrel ka radius. Mild steel ke liye k=2. TMT ke liye usually k=4.</li>
+                            <li><strong>4d Rule:</strong> Curve khatam hone ke baad jo straight part bachta hai, wo kam se kam <strong>4d</strong> lamba hona chahiye. (Aur minimum 65mm hona hi chahiye).</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
-            <p class="text-gray-300 text-lg mb-8 gs-reveal">
-                Bar ko concrete me phasa ke rakhne ke liye hooks banaye jate hain. IS 2502 me 2 main type ke hooks aur bends defined hain. 
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="glass-panel p-8 rounded-2xl gs-reveal group cursor-pointer" onmouseenter="animateHook('u-hook')" onmouseleave="resetHook('u-hook')">
-                    <div class="flex justify-between items-start mb-6">
-                        <div>
-                            <h3 class="text-2xl font-bold text-white">Standard 180° Hook</h3>
-                            <p class="text-neonGreen font-mono mt-1">Anchorage Value = 16d</p>
-                        </div>
-                        <i class="fa-solid fa-arrow-rotate-left text-2xl text-gray-600 group-hover:text-neonGreen transition"></i>
-                    </div>
-                    
-                    <div class="h-48 bg-black/50 rounded-xl border border-gray-800 flex justify-center items-center overflow-hidden relative">
-                        <svg viewBox="0 0 200 100" class="w-full h-full overflow-visible">
-                            <path id="u-hook-straight" d="M 20,50 L 180,50" stroke="#334155" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.3"/>
-                            <path id="u-hook-anim" d="M 20,50 L 130,50" class="rebar-path" />
-                            <g class="dim-lines opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-500">
-                                <line x1="130" y1="20" x2="160" y2="20" stroke="#10b981" stroke-width="1" stroke-dasharray="2,2"/>
-                                <text x="145" y="15" fill="#10b981" font-size="10" font-family="monospace" text-anchor="middle">min 4d</text>
-                            </g>
-                        </svg>
-                    </div>
-                    <ul class="mt-6 space-y-2 text-sm text-gray-400">
-                        <li>👉 180 degree ka ghumav.</li>
-                        <li>👉 Straight portion hook ke baad kam se kam <strong>4d</strong> lamba hona chahiye (minimum 65mm).</li>
-                    </ul>
+            <div class="glass-box p-8 rounded-2xl border border-brandBorder">
+                <div class="mb-6 flex justify-between items-center">
+                    <h4 class="text-xl font-bold text-accentGreen">Standard 90° L-Bend (Fig. 1B)</h4>
+                    <span class="bg-green-900/30 text-green-400 px-3 py-1 rounded text-xs font-mono border border-green-900/50">Bend Deduction = 2d</span>
                 </div>
-
-                <div class="glass-panel p-8 rounded-2xl gs-reveal group cursor-pointer" onmouseenter="animateHook('l-bend')" onmouseleave="resetHook('l-bend')">
-                    <div class="flex justify-between items-start mb-6">
-                        <div>
-                            <h3 class="text-2xl font-bold text-white">Standard 90° Bend</h3>
-                            <p class="text-neonBlue font-mono mt-1">Anchorage Value = 8d</p>
-                        </div>
-                        <i class="fa-solid fa-turn-down text-2xl text-gray-600 group-hover:text-neonBlue transition"></i>
-                    </div>
-                    
-                    <div class="h-48 bg-black/50 rounded-xl border border-gray-800 flex justify-center items-center overflow-hidden relative">
-                        <svg viewBox="0 0 200 100" class="w-full h-full overflow-visible">
-                            <path id="l-bend-straight" d="M 20,20 L 150,20" stroke="#334155" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.3"/>
-                            <path id="l-bend-anim" d="M 20,20 L 100,20" class="rebar-path" />
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="bg-brandPanel rounded-xl border border-brandBorder p-6 flex justify-center">
+                        <svg viewBox="0 0 200 150" class="w-full max-w-[200px]">
+                            <path d="M 180,120 L 70,120" stroke="#555" stroke-width="8" fill="none" stroke-linecap="round"/>
+                            <path d="M 70,120 A 30,30 0 0 1 40,90 L 40,20" stroke="#16a34a" stroke-width="8" fill="none" stroke-linecap="round"/>
+                            <line x1="30" y1="20" x2="50" y2="20" stroke="#737373" stroke-width="1"/>
+                            <line x1="30" y1="90" x2="50" y2="90" stroke="#737373" stroke-width="1"/>
+                            <text x="25" y="60" fill="#737373" font-size="10" text-anchor="middle" transform="rotate(-90 25 60)" font-family="monospace">min 4d</text>
                         </svg>
                     </div>
-                    <ul class="mt-6 space-y-2 text-sm text-gray-400">
-                        <li>👉 90 degree ka ghumav.</li>
-                        <li>👉 Straight portion hook ke baad kam se kam <strong>4d</strong> lamba hona chahiye.</li>
-                        <li>👉 Zyada tar column se footing junction ya slab edges me use hota hai.</li>
-                    </ul>
+                    <div>
+                        <ul class="space-y-4 text-textMuted text-sm leading-relaxed list-disc list-inside">
+                            <li>Yeh bend columns se footing ya slab edges par istemal hota hai.</li>
+                            <li><strong>Formula Logic:</strong> Jab sariya 90 degree ghumta hai, toh total lambaai me roughly <strong>2d</strong> ka izafa (elongation) hota hai. Isliye hum lambaai se 2d minus karte hain.</li>
+                            <li>Isme bhi bend ke baad straight hissa kam se kam <strong>4d</strong> hona chahiye.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="stirrups" class="scroll-mt-24">
+            <h3 class="text-2xl font-bold mb-6 flex items-center gap-3 border-b border-brandBorder pb-3">
+                <span class="text-accentRed">5.</span> Binders, Stirrups, Links (Clause 3.8 & Table V)
+            </h3>
+            <div class="glass-box p-8 rounded-2xl relative overflow-hidden">
+                <div class="absolute -right-20 -top-20 w-64 h-64 border-[40px] border-accentRed/5 rounded-full z-0 pointer-events-none"></div>
+                
+                <p class="text-textMuted mb-6 relative z-10">
+                    Stirrups (Rings) columns aur beams ko shear force se bachate hain aur main bars ko apni jagah par pakad kar rakhte hain. Isme 135-degree ke hooks banaye jate hain.
+                </p>
+
+                <div class="bg-brandPanel border border-brandBorder rounded-xl p-6 relative z-10">
+                    <h4 class="text-lg font-bold text-white mb-4">The Crucial "8d / 10d" Rule</h4>
+                    <p class="text-sm text-textMuted mb-4">
+                        IS 2502 (Clause 3.8) specifically kehta hai: "In the case of binders, stirrups, links, etc, the straight portion beyond end of curve at the end shall be <strong>not less than eight times (8d)</strong> the nominal size of the bar." <br><br>
+                        <em>Note: Earthquake prone areas (seismic zones) mein modern codes (jaise IS 13920) ise badha kar <strong>10d ya 75mm</strong> (whichever is greater) kar dete hain.</em>
+                    </p>
+                    
+                    <div class="mt-6 border-t border-brandBorder pt-6">
+                        <h4 class="text-lg font-bold text-white mb-4">Cutting Length Formula (Rectangular Ring)</h4>
+                        <div class="bg-black p-4 rounded font-mono text-sm text-center border border-gray-800">
+                            <span class="text-accentBlue">2 × (A + B)</span> + <span class="text-accentGreen">(2 × Hook Length)</span> - <span class="text-accentRed">(Bend Deductions)</span>
+                        </div>
+                        <ul class="text-xs text-textMuted mt-4 space-y-2 text-center">
+                            <li>A & B = Inner core dimensions (Column Size - 2x Cover).</li>
+                            <li>Hook Length = Generally taken as 10d or 12d per hook for 135° bends.</li>
+                            <li>Bend Deductions = 3 corners of 90° (3 × 2d) + 2 corners of 135° (2 × 3d).</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="tolerances" class="scroll-mt-24">
-            <div class="flex items-center gap-4 mb-10 gs-reveal">
-                <h2 class="text-4xl font-black text-white">04. <span class="text-purple-400">Site Tolerances</span> (Allowed Errors)</h2>
-                <div class="flex-grow h-px bg-gradient-to-r from-purple-400 to-transparent"></div>
-            </div>
-
-            <div class="glass-panel rounded-2xl overflow-hidden gs-reveal">
-                <div class="p-6 bg-purple-900/20 border-b border-gray-800">
-                    <p class="text-gray-300">Site pe bar bender robot nahi hai. Millimeter to millimeter accuracy namumkin hai. IS 2502 allow karta hai kuch minor mistakes jise <strong>Tolerance</strong> kehte hain.</p>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-gray-900 text-gray-400 font-mono text-sm uppercase tracking-wider">
-                                <th class="p-4 border-b border-gray-800">Condition / Type of Cut</th>
-                                <th class="p-4 border-b border-gray-800">Length Constraint</th>
-                                <th class="p-4 border-b border-gray-800">Tolerance Allowed (IS 2502)</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-gray-300 divide-y divide-gray-800">
-                            <tr class="hover:bg-gray-800/50 transition">
-                                <td class="p-4 font-semibold text-white">Cutting Length of Straight Bar</td>
-                                <td class="p-4 font-mono text-sm text-gray-400">All lengths</td>
-                                <td class="p-4"><span class="text-green-400">+25 mm</span> / <span class="text-red-400">-25 mm</span></td>
-                            </tr>
-                            <tr class="hover:bg-gray-800/50 transition">
-                                <td class="p-4 font-semibold text-white">Length of Bent Bar</td>
-                                <td class="p-4 font-mono text-sm text-gray-400">Up to 1000 mm (1 meter)</td>
-                                <td class="p-4"><span class="text-green-400">+10 mm</span> / <span class="text-red-400">-10 mm</span></td>
-                            </tr>
-                            <tr class="hover:bg-gray-800/50 transition">
-                                <td class="p-4 font-semibold text-white">Length of Bent Bar</td>
-                                <td class="p-4 font-mono text-sm text-gray-400">1000 mm to 2000 mm</td>
-                                <td class="p-4"><span class="text-green-400">+15 mm</span> / <span class="text-red-400">-15 mm</span></td>
-                            </tr>
-                            <tr class="hover:bg-gray-800/50 transition">
-                                <td class="p-4 font-semibold text-white">Length of Bent Bar</td>
-                                <td class="p-4 font-mono text-sm text-gray-400">Over 2000 mm</td>
-                                <td class="p-4"><span class="text-green-400">+25 mm</span> / <span class="text-red-400">-25 mm</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <h3 class="text-2xl font-bold mb-6 flex items-center gap-3 border-b border-brandBorder pb-3">
+                <span class="text-white">6.</span> Bending and Cutting Tolerances (Clause 5.1, Table XI)
+            </h3>
+            <div class="glass-box p-6 rounded-2xl overflow-x-auto">
+                <p class="text-textMuted text-sm mb-4">Manual site work mein millimeter-to-millimeter accuracy impossible hai. IS code in errors (tolerances) ko allow karta hai:</p>
+                <table class="min-w-full">
+                    <thead>
+                        <tr>
+                            <th>Condition / Measurement</th>
+                            <th>Specified Dimension</th>
+                            <th>Tolerance (IS 2502 Allowed)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr>
+                            <td class="font-bold text-white">Length of Straight Bar</td>
+                            <td class="text-textMuted">All lengths</td>
+                            <td class="font-mono text-accentGreen">+ 25 mm / - 25 mm</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-white">Length of Bent Bar</td>
+                            <td class="text-textMuted">Up to 1000 mm</td>
+                            <td class="font-mono text-accentGreen">+ 10 mm / - 10 mm</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-white">Length of Bent Bar</td>
+                            <td class="text-textMuted">Over 1000 mm up to 2000 mm</td>
+                            <td class="font-mono text-accentGreen">+ 15 mm / - 15 mm</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-white">Length of Bent Bar</td>
+                            <td class="text-textMuted">Over 2000 mm</td>
+                            <td class="font-mono text-accentGreen">+ 25 mm / - 25 mm</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
-        <section id="bbs" class="scroll-mt-24 mb-32">
-            <div class="flex items-center gap-4 mb-10 gs-reveal">
-                <h2 class="text-4xl font-black text-white">05. <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-orange-500">BBS Pro Master</span></h2>
-                <div class="flex-grow h-px bg-gradient-to-r from-orange-500 to-transparent"></div>
-            </div>
-
-            <div class="glass-panel p-8 rounded-3xl gs-reveal shadow-[0_0_30px_rgba(249,115,22,0.1)]">
-                <p class="text-gray-300 mb-8">
-                    Is tool se hum kisi bhi shape ki <strong>Cutting Length</strong> nikal sakte hain. Bend Deductions apne aap minus ho jayenge IS Code ke mutabik.
-                </p>
-
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div class="lg:col-span-1 space-y-5 bg-gray-900/50 p-6 rounded-2xl border border-gray-800">
-                        <h3 class="text-xl font-bold text-white mb-4 border-b border-gray-700 pb-2">Shape Inputs</h3>
-                        
-                        <div>
-                            <label class="block text-sm text-gray-400 mb-1">Bar Diameter (d)</label>
-                            <select id="bbs-dia" class="w-full bg-black border border-gray-700 text-white rounded-lg p-3 outline-none focus:border-neonOrange transition">
-                                <option value="8">8 mm</option>
-                                <option value="10">10 mm</option>
-                                <option value="12" selected>12 mm</option>
-                                <option value="16">16 mm</option>
-                                <option value="20">20 mm</option>
+        <section id="calculator" class="scroll-mt-24 pb-20">
+            <div class="bg-gradient-to-r from-blue-900/20 to-purple-900/20 p-8 md:p-12 rounded-3xl border border-brandBorder shadow-[0_0_50px_rgba(37,99,235,0.1)]">
+                <h3 class="text-3xl font-black mb-2 text-white flex items-center gap-3">
+                    <i class="fa-solid fa-laptop-code text-accentBlue"></i> IS 2502 Pro Calculator
+                </h3>
+                <p class="text-textMuted mb-10">Pura code samajhne ke baad, chaliye is logic ko apply karte hain. Sariye ka shape select karein aur automatic bend deductions ke sath final cutting length nikalein.</p>
+                
+                <div class="grid lg:grid-cols-2 gap-12">
+                    
+                    <div class="space-y-6">
+                        <div class="bg-brandPanel p-6 rounded-2xl border border-brandBorder">
+                            <label class="block text-xs font-bold text-textMuted uppercase tracking-wider mb-3">1. Select Shape</label>
+                            <select id="calc-type" onchange="updateCalcUI()" class="w-full bg-brandDark border border-brandBorder text-white rounded-lg p-3 outline-none focus:border-accentBlue transition font-mono text-sm">
+                                <option value="straight">Straight Bar</option>
+                                <option value="lbend">L-Bend Bar (90°)</option>
+                                <option value="uhook">U-Hook Bar (180°)</option>
+                                <option value="stirrup">Rectangular Stirrup</option>
+                                <option value="crank">Cranked Bar (Slab 45°)</option>
                             </select>
                         </div>
 
-                        <div>
-                            <label class="block text-sm text-gray-400 mb-1">Total Straight Length (mm)</label>
-                            <input type="number" id="bbs-length" value="3000" class="w-full bg-black border border-gray-700 text-white rounded-lg p-3 outline-none focus:border-neonOrange transition font-mono">
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-brandPanel p-6 rounded-2xl border border-brandBorder space-y-4">
+                            <label class="block text-xs font-bold text-textMuted uppercase tracking-wider mb-1">2. Dimensions (mm)</label>
+                            
                             <div>
-                                <label class="block text-sm text-gray-400 mb-1">No. of 90° Bends</label>
-                                <input type="number" id="bbs-90" value="2" min="0" class="w-full bg-black border border-gray-700 text-white rounded-lg p-3 outline-none focus:border-neonOrange transition font-mono">
+                                <label class="block text-xs text-textMuted mb-1">Bar Diameter (d)</label>
+                                <input type="number" id="calc-dia" value="12" class="w-full bg-brandDark border border-brandBorder text-white rounded-lg p-3 outline-none focus:border-accentBlue transition font-mono">
                             </div>
-                            <div>
-                                <label class="block text-sm text-gray-400 mb-1">No. of 135° Bends</label>
-                                <input type="number" id="bbs-135" value="0" min="0" class="w-full bg-black border border-gray-700 text-white rounded-lg p-3 outline-none focus:border-neonOrange transition font-mono">
+
+                            <div id="inp-L">
+                                <label class="block text-xs text-textMuted mb-1 mt-2">Straight Length (L)</label>
+                                <input type="number" id="calc-l" value="3000" class="w-full bg-brandDark border border-brandBorder text-white rounded-lg p-3 outline-none focus:border-accentBlue transition font-mono">
+                            </div>
+
+                            <div id="inp-B" class="hidden">
+                                <label class="block text-xs text-textMuted mb-1 mt-2">Bend/Hook Length (B/H)</label>
+                                <input type="number" id="calc-b" value="300" class="w-full bg-brandDark border border-brandBorder text-white rounded-lg p-3 outline-none focus:border-accentBlue transition font-mono">
+                            </div>
+
+                            <div id="inp-stirrup" class="hidden grid-cols-2 gap-4 mt-2">
+                                <div>
+                                    <label class="block text-xs text-textMuted mb-1">Column X (Width)</label>
+                                    <input type="number" id="calc-x" value="300" class="w-full bg-brandDark border border-brandBorder text-white rounded-lg p-3 outline-none focus:border-accentBlue transition font-mono">
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-textMuted mb-1">Column Y (Depth)</label>
+                                    <input type="number" id="calc-y" value="450" class="w-full bg-brandDark border border-brandBorder text-white rounded-lg p-3 outline-none focus:border-accentBlue transition font-mono">
+                                </div>
+                                <div class="col-span-2">
+                                    <label class="block text-xs text-textMuted mb-1">Clear Cover</label>
+                                    <input type="number" id="calc-cover" value="40" class="w-full bg-brandDark border border-brandBorder text-white rounded-lg p-3 outline-none focus:border-accentBlue transition font-mono">
+                                </div>
+                            </div>
+
+                            <div id="inp-crank" class="hidden mt-2">
+                                <label class="block text-xs text-textMuted mb-1">Crank Height / Depth (h)</label>
+                                <input type="number" id="calc-h" value="150" class="w-full bg-brandDark border border-brandBorder text-white rounded-lg p-3 outline-none focus:border-accentBlue transition font-mono">
                             </div>
                         </div>
 
-                        <div>
-                            <label class="block text-sm text-gray-400 mb-1">Include Hooks?</label>
-                            <select id="bbs-hooks" class="w-full bg-black border border-gray-700 text-white rounded-lg p-3 outline-none focus:border-neonOrange transition">
-                                <option value="0">No Hooks</option>
-                                <option value="2">2 Standard U-Hooks (180°)</option>
-                            </select>
-                        </div>
-
-                        <button onclick="calculateBBSPro()" class="w-full mt-4 py-4 bg-gradient-to-r from-orange-600 to-red-600 hover:from-red-600 hover:to-orange-600 text-white font-bold rounded-xl shadow-lg transform transition hover:-translate-y-1 active:translate-y-0">
-                            <i class="fa-solid fa-gears mr-2"></i> Generate Cutting Length
+                        <button onclick="runBBSCalc()" class="w-full py-4 bg-accentBlue hover:bg-blue-600 text-white font-black rounded-xl shadow-lg transition duration-200">
+                            GENERATE CUTTING LENGTH
                         </button>
                     </div>
 
-                    <div class="lg:col-span-2 flex flex-col gap-6">
+                    <div class="bg-[#0a0a0a] rounded-2xl border border-[#222] p-8 flex flex-col justify-center items-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-blue-500/5 pointer-events-none"></div>
                         
-                        <div class="bg-black rounded-2xl border border-gray-800 p-8 flex flex-col md:flex-row items-center justify-between relative overflow-hidden group">
-                            <div class="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                            
-                            <div>
-                                <p class="text-gray-400 font-mono text-sm uppercase tracking-widest mb-2">Final Cutting Length</p>
-                                <div class="text-5xl md:text-6xl font-black text-white" id="res-length">0 <span class="text-2xl text-gray-500">mm</span></div>
-                            </div>
-                            
-                            <div class="mt-6 md:mt-0 text-right space-y-2 bg-gray-900/80 p-4 rounded-xl border border-gray-800 font-mono text-sm">
-                                <div class="flex justify-between gap-8"><span class="text-gray-500">Straight:</span> <span id="res-st" class="text-white">0 mm</span></div>
-                                <div class="flex justify-between gap-8"><span class="text-gray-500">Hooks Add:</span> <span id="res-hk" class="text-green-400">+0 mm</span></div>
-                                <div class="flex justify-between gap-8"><span class="text-gray-500">Bend Deduct:</span> <span id="res-bd" class="text-red-400">-0 mm</span></div>
-                            </div>
+                        <span class="text-xs font-mono text-textMuted uppercase tracking-widest mb-4">Total Cutting Length</span>
+                        <div class="text-6xl md:text-7xl font-black text-white mb-10 font-mono tracking-tighter" id="out-total">
+                            0<span class="text-2xl text-textMuted ml-2">mm</span>
                         </div>
 
-                        <div class="flex-grow bg-gray-900 rounded-2xl border border-gray-800 p-6 flex flex-col justify-center items-center relative">
-                            <p class="absolute top-4 left-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Calculated Logic</p>
-                            
-                            <div class="w-full max-w-md space-y-4">
-                                <div class="flex justify-between items-center text-sm">
-                                    <span class="text-gray-400">Base Length (L)</span>
-                                    <span class="font-mono text-white" id="log-l">-</span>
-                                </div>
-                                <div class="w-full h-px bg-gray-800"></div>
-                                <div class="flex justify-between items-center text-sm">
-                                    <span class="text-gray-400">Hook Allowance (If 180°) = 2 × 9d</span>
-                                    <span class="font-mono text-green-400" id="log-h">-</span>
-                                </div>
-                                <div class="w-full h-px bg-gray-800"></div>
-                                <div class="flex justify-between items-center text-sm">
-                                    <span class="text-gray-400">Bend Deductions (90° = 2d, 135° = 3d)</span>
-                                    <span class="font-mono text-red-400" id="log-d">-</span>
-                                </div>
-                                <div class="w-full h-px bg-gray-800"></div>
-                                <div class="flex justify-between items-center font-bold text-lg">
-                                    <span class="text-neonOrange">Total Cutting Length</span>
-                                    <span class="font-mono text-neonOrange" id="log-t">-</span>
-                                </div>
+                        <div class="w-full border-t border-[#222] pt-6 space-y-4 text-sm font-mono">
+                            <div class="flex justify-between items-center">
+                                <span class="text-textMuted">Gross Length Added:</span>
+                                <span class="text-accentGreen" id="out-gross">+ 0 mm</span>
+                            </div>
+                            <div class="flex justify-between items-center pb-4 border-b border-[#222]">
+                                <span class="text-textMuted">Bend Deductions (IS Rule):</span>
+                                <span class="text-accentRed" id="out-deduct">- 0 mm</span>
+                            </div>
+                            <div class="bg-[#111] p-4 rounded text-xs text-textMuted leading-relaxed break-words" id="out-formula">
+                                Formula: (waiting for input)
                             </div>
                         </div>
-
                     </div>
+
                 </div>
             </div>
         </section>
 
     </main>
 
-    <footer class="border-t border-gray-800 bg-black mt-20 py-12 text-center">
-        <p class="text-gray-500 text-sm font-mono mb-4">Developed for site readiness by Civil Engineers.</p>
-        <p class="text-gray-600 text-xs max-w-2xl mx-auto px-4">
-            Disclaimer: Always refer to the actual printed IS 2502 code book and your structural designer's drawings for live site execution. Tools are for learning visualization.
-        </p>
-    </footer>
-
     <script>
-        // --- 1. Fake Pro Loader ---
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('pro-loader');
-            const prog = document.getElementById('load-prog');
-            const text = document.getElementById('load-text');
-            
-            let width = 0;
-            const interval = setInterval(() => {
-                width += Math.floor(Math.random() * 20) + 5;
-                if(width >= 100) {
-                    width = 100;
-                    clearInterval(interval);
-                    text.innerText = "Execution Ready!";
-                    
-                    gsap.to(loader, {
-                        yPercent: -100,
-                        duration: 0.8,
-                        ease: "power4.inOut",
-                        delay: 0.2,
-                        onComplete: initAnimations // Start site anims after loader
-                    });
+        // Smooth scrolling & active state for side nav
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('.side-nav-item');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 150) {
+                    current = section.getAttribute('id');
                 }
-                prog.style.width = width + '%';
-                if(width > 40 && width < 80) text.innerText = "Parsing Tolerance Tables...";
-            }, 100);
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href').includes(current)) {
+                    item.classList.add('active');
+                }
+            });
         });
 
-        // --- 2. GSAP Scroll Animations ---
-        gsap.registerPlugin(ScrollTrigger);
+        // UI toggles for calculator
+        function updateCalcUI() {
+            const type = document.getElementById('calc-type').value;
+            document.getElementById('inp-L').style.display = 'none';
+            document.getElementById('inp-B').style.display = 'none';
+            document.getElementById('inp-stirrup').style.display = 'none';
+            document.getElementById('inp-crank').style.display = 'none';
 
-        function initAnimations() {
-            // Hero Animation
-            gsap.to(".hero-content", {
-                opacity: 1, y: 0, duration: 1, ease: "power3.out"
-            });
-
-            // Reveal sections on scroll
-            const reveals = gsap.utils.toArray('.gs-reveal');
-            reveals.forEach((elem) => {
-                gsap.fromTo(elem, 
-                    { autoAlpha: 0, y: 50 },
-                    { 
-                        autoAlpha: 1, 
-                        y: 0, 
-                        duration: 0.8, 
-                        ease: "power2.out",
-                        scrollTrigger: {
-                            trigger: elem,
-                            start: "top 85%", 
-                            toggleActions: "play none none reverse"
-                        }
-                    }
-                );
-            });
-        }
-
-        // --- 3. Mandrel Interaction Logic ---
-        function setMandrel(type) {
-            const btnMild = document.getElementById('btn-mild');
-            const btnTmt = document.getElementById('btn-tmt');
-            const r1 = document.getElementById('rule-1');
-            const r2 = document.getElementById('rule-2');
-            const viz = document.getElementById('mandrel-viz');
-            const vizText = document.getElementById('mandrel-text');
-            const path = document.getElementById('bend-path');
-
-            if(type === 'mild') {
-                // UI changes
-                btnMild.className = "flex-1 py-3 px-4 rounded-xl font-bold transition-all bg-neonBlue text-white border-2 border-transparent";
-                btnTmt.className = "flex-1 py-3 px-4 rounded-xl font-bold transition-all bg-gray-800 text-gray-400 border-2 border-gray-700 hover:border-gray-500";
-                
-                // Data changes (IS 2502 mild steel)
-                r1.innerText = "2d"; r2.innerText = "3d";
-                
-                // Visualizer changes
-                gsap.to(viz, { width: 60, height: 60, duration: 0.5, ease: "back.out(1.7)" });
-                vizText.innerText = "2d";
-                gsap.to(path, { attr: { d: "M -100,30 L 0,30 A 30 30 0 0 0 30,0 L 30,-100" }, duration: 0.5 });
-            } else {
-                // UI changes
-                btnTmt.className = "flex-1 py-3 px-4 rounded-xl font-bold transition-all bg-neonOrange text-white border-2 border-transparent";
-                btnMild.className = "flex-1 py-3 px-4 rounded-xl font-bold transition-all bg-gray-800 text-gray-400 border-2 border-gray-700 hover:border-gray-500";
-                
-                // Data changes (IS 2502 HYSD/TMT)
-                r1.innerText = "4d"; r2.innerText = "6d"; // General site practice/codes for TMT
-                
-                // Visualizer changes
-                gsap.to(viz, { width: 100, height: 100, duration: 0.5, ease: "back.out(1.7)" });
-                vizText.innerText = "4d";
-                gsap.to(path, { attr: { d: "M -100,50 L 0,50 A 50 50 0 0 0 50,0 L 50,-100" }, duration: 0.5 });
+            if(type === 'straight') {
+                document.getElementById('inp-L').style.display = 'block';
+            } else if(type === 'lbend' || type === 'uhook') {
+                document.getElementById('inp-L').style.display = 'block';
+                document.getElementById('inp-B').style.display = 'block';
+            } else if(type === 'stirrup') {
+                document.getElementById('inp-stirrup').style.display = 'grid';
+            } else if(type === 'crank') {
+                document.getElementById('inp-L').style.display = 'block';
+                document.getElementById('inp-crank').style.display = 'block';
             }
         }
 
-        // --- 4. Hook SVG Animations ---
-        function animateHook(type) {
-            if(type === 'u-hook') {
-                gsap.to("#u-hook-anim", {
-                    attr: { d: "M 20,50 L 140,50 A 20 20 0 0 0 140,10 L 90,10" },
-                    duration: 0.8, ease: "power2.out"
-                });
-            } else if (type === 'l-bend') {
-                gsap.to("#l-bend-anim", {
-                    attr: { d: "M 20,20 L 120,20 A 15 15 0 0 1 135,35 L 135,90" },
-                    duration: 0.8, ease: "power2.out"
-                });
-            }
-        }
-
-        function resetHook(type) {
-            if(type === 'u-hook') {
-                gsap.to("#u-hook-anim", {
-                    attr: { d: "M 20,50 L 130,50" },
-                    duration: 0.5, ease: "power2.in"
-                });
-            } else if (type === 'l-bend') {
-                gsap.to("#l-bend-anim", {
-                    attr: { d: "M 20,20 L 100,20" },
-                    duration: 0.5, ease: "power2.in"
-                });
-            }
-        }
-
-        // --- 5. BBS Pro Calculator Logic ---
-        function calculateBBSPro() {
-            const d = parseFloat(document.getElementById('bbs-dia').value);
-            const L = parseFloat(document.getElementById('bbs-length').value);
-            const num90 = parseInt(document.getElementById('bbs-90').value);
-            const num135 = parseInt(document.getElementById('bbs-135').value);
-            const hooks = parseInt(document.getElementById('bbs-hooks').value);
-
-            // Calculations
-            let hookAllowance = 0;
-            let bendDeduction = 0;
-
-            if (hooks === 2) {
-                // 180 deg hook allowance is generally taken as 9d for each hook (if straight length excludes the curve)
-                // However, if we do rigorous IS code calculation, 1 hook total length add is ~ 9d.
-                hookAllowance = 2 * (9 * d); 
-                // Note: The hook bend deduction (4d) is often adjusted inside the 9d empirical formula.
-            }
-
-            // Deductions
-            // 90 deg = 2d per bend
-            // 135 deg = 3d per bend
-            let deduction90 = num90 * (2 * d);
-            let deduction135 = num135 * (3 * d);
-            bendDeduction = deduction90 + deduction135;
-
-            // Cutting Length = Straight + Hooks - Deductions
-            const total = L + hookAllowance - bendDeduction;
-
-            // Update UI with CountUp animation
-            animateCountUp("res-length", 0, total, 1000);
+        // Core Calculation Engine based on IS 2502
+        function runBBSCalc() {
+            const type = document.getElementById('calc-type').value;
+            const d = parseFloat(document.getElementById('calc-dia').value) || 0;
             
-            document.getElementById('res-st').innerText = L + " mm";
-            document.getElementById('res-hk').innerText = "+" + hookAllowance + " mm";
-            document.getElementById('res-bd').innerText = "-" + bendDeduction + " mm";
+            let total = 0, gross = 0, deduct = 0;
+            let formulaStr = "";
 
-            // Update Ledger
-            document.getElementById('log-l').innerText = L;
-            document.getElementById('log-h').innerText = "+" + hookAllowance;
-            document.getElementById('log-d').innerText = "-" + bendDeduction;
-            document.getElementById('log-t').innerText = total + " mm";
+            if(type === 'straight') {
+                const L = parseFloat(document.getElementById('calc-l').value) || 0;
+                gross = L; deduct = 0;
+                total = L;
+                formulaStr = `Total = Straight Length (L) = ${L}`;
+            } 
+            else if(type === 'lbend') {
+                const L = parseFloat(document.getElementById('calc-l').value) || 0;
+                const B = parseFloat(document.getElementById('calc-b').value) || 0;
+                gross = L + B;
+                deduct = 2 * d; // 1 bend of 90 degrees
+                total = gross - deduct;
+                formulaStr = `Total = (L + B) - (1 × 2d) = (${L} + ${B}) - ${deduct}`;
+            }
+            else if(type === 'uhook') {
+                const L = parseFloat(document.getElementById('calc-l').value) || 0;
+                const H = parseFloat(document.getElementById('calc-b').value) || (9*d); // Often hook allowance is taken as 9d
+                gross = L + (2 * H); // Assuming two hooks on ends
+                deduct = 0; // Usually hook allowance formula incorporates the deduction, so +9d is net.
+                total = gross;
+                formulaStr = `Total = L + (2 × Hook Allowance) = ${L} + (2 × ${H})`;
+            }
+            else if(type === 'stirrup') {
+                const X = parseFloat(document.getElementById('calc-x').value) || 0;
+                const Y = parseFloat(document.getElementById('calc-y').value) || 0;
+                const cover = parseFloat(document.getElementById('calc-cover').value) || 0;
+                
+                const A = X - (2 * cover);
+                const B = Y - (2 * cover);
+                const hookL = 24 * d; // 12d x 2 hooks (Seismic standard)
+                
+                gross = (2 * A) + (2 * B) + hookL;
+                deduct = (3 * 2 * d) + (2 * 3 * d); // Three 90° bends (2d) + Two 135° bends (3d)
+                total = gross - deduct;
+                
+                formulaStr = `Total = 2(A+B) + Hook Length - Deductions = 2(${A}+${B}) + ${hookL} - ${deduct}`;
+            }
+            else if(type === 'crank') {
+                const L = parseFloat(document.getElementById('calc-l').value) || 0;
+                const h = parseFloat(document.getElementById('calc-h').value) || 0;
+                // Extra length for 45 deg crank is approx 0.42h. For two cranks: 0.42h * 2
+                const extra = 0.42 * h * 2;
+                gross = L + extra;
+                deduct = 0; // 45 degree bends are usually accommodated in the 0.42h factor empirically
+                total = gross;
+                formulaStr = `Total = L + (2 × 0.42h) = ${L} + ${extra.toFixed(2)}`;
+            }
+
+            // Update UI
+            document.getElementById('out-total').innerHTML = total.toFixed(0) + '<span class="text-2xl text-textMuted ml-2">mm</span>';
+            document.getElementById('out-gross').innerText = '+ ' + gross.toFixed(0) + ' mm';
+            document.getElementById('out-deduct').innerText = '- ' + deduct.toFixed(0) + ' mm';
+            document.getElementById('out-formula').innerText = formulaStr;
         }
 
-        // CountUp function for numbers
-        function animateCountUp(id, start, end, duration) {
-            let obj = document.getElementById(id);
-            let startTime = null;
-            
-            // Clean DOM element content
-            const suffixStr = ' <span class="text-2xl text-gray-500">mm</span>';
-
-            const step = (timestamp) => {
-                if (!startTime) startTime = timestamp;
-                const progress = Math.min((timestamp - startTime) / duration, 1);
-                // easeOutExpo formula
-                const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-                
-                const currentVal = Math.floor(easeProgress * (end - start) + start);
-                obj.innerHTML = currentVal + suffixStr;
-                
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                } else {
-                    obj.innerHTML = end + suffixStr; // ensure exact end value
-                }
-            };
-            window.requestAnimationFrame(step);
-        }
-
-        // Init calc on load
-        calculateBBSPro();
-
+        // Initial setup
+        updateCalcUI();
+        runBBSCalc();
     </script>
 </body>
 </html>
